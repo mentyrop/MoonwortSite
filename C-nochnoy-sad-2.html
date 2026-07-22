@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moonwort — вариант C · Ночной сад, вторая ночь</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     C · «Ночной сад, вторая ночь» — развитие прототипа, который
+     понравился заказчику: тот же тёмный сад и серифы, но глубже.
+     Новое: фазы луны как стадии пути мысли, распускающийся на
+     скролле папоротник, аккуратные scroll-reveal'ы.
+     ============================================================ */
+  :root{
+    --bg:#090E0C; --bg2:#0D1411; --surface:#121A16; --surface2:#17211C;
+    --ink:#EAF2EC; --muted:#8FA398; --line:#22302A;
+    --lime:#A8E063; --teal:#2FD4B0; --lav:#B9A8E6;
+    --grad:linear-gradient(115deg,#C8E96A,#5ADE8E 45%,#35C9C0);
+    --serif:"Spectral","Iowan Old Style",Georgia,serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{background:var(--bg)}
+  body{margin:0;color:var(--ink);font:16px/1.7 var(--sans);-webkit-font-smoothing:antialiased;
+    background:radial-gradient(1300px 750px at 72% -12%,#12211B 0%,var(--bg) 55%)}
+  a{color:inherit}
+  h1,h2,h3{margin:0;text-wrap:balance}
+  .wrap{max-width:1020px;margin:0 auto;padding:0 24px}
+  .serif{font-family:var(--serif)}
+  .eyebrow{font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--teal);font-weight:600}
+
+  .sky{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .content{position:relative;z-index:1}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:17px}
+  .brand .moonmark{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 62% 38%,#F2F7EC 30%,#C9DCC4 60%,#8FA398 100%);
+    box-shadow:0 0 26px rgba(200,233,106,.3)}
+  .nav-cta{font-size:14px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 16px;transition:border-color .2s,color .2s}
+  .nav-cta:hover{border-color:var(--teal);color:var(--ink)}
+
+  .hero{text-align:center;padding:84px 0 60px;max-width:760px;margin:0 auto}
+  .hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,6vw,66px);line-height:1.12;letter-spacing:-.01em;margin-top:20px}
+  .hero h1 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{font-size:18.5px;color:var(--muted);margin:24px auto 32px;max-width:32em}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .btn{display:inline-flex;align-items:center;border-radius:999px;padding:13px 26px;font-size:15.5px;font-weight:600;text-decoration:none;transition:transform .12s}
+  .btn:active{transform:scale(.98)}
+  .btn-glow{background:var(--grad);color:#0A1410;box-shadow:0 0 34px rgba(90,222,142,.3)}
+  .btn-line{border:1px solid var(--line);color:var(--ink)}
+  .btn-line:hover{border-color:var(--teal)}
+  .cta-note{font-size:13px;color:var(--muted);margin-top:14px}
+
+  /* путь мысли: три фазы луны */
+  .phases{padding:40px 0 90px}
+  .phase-track{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative;margin-top:48px}
+  .phase-track::before{content:"";position:absolute;top:34px;left:12%;right:12%;height:1px;
+    background:linear-gradient(90deg,transparent,var(--line) 20%,var(--line) 80%,transparent)}
+  .phase{text-align:center;position:relative;padding:0 8px}
+  .phase .moon-svg{width:68px;height:68px;margin:0 auto;display:block;position:relative;z-index:1;
+    filter:drop-shadow(0 0 18px rgba(200,233,106,.22))}
+  .phase h3{font-family:var(--serif);font-weight:500;font-size:20px;margin:18px 0 8px}
+  .phase h3 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .phase p{color:var(--muted);font-size:14.5px;margin:0;max-width:24em;margin-inline:auto}
+  .phase .ph-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);margin-top:14px;font-weight:600}
+
+  /* демо-диалог */
+  .demo-band{padding:0 0 90px}
+  .scene{max-width:640px;margin:0 auto;background:linear-gradient(180deg,var(--surface),var(--bg2));
+    border:1px solid var(--line);border-radius:22px;padding:24px;position:relative;overflow:hidden;min-height:320px;
+    display:flex;flex-direction:column;gap:13px}
+  .scene::before{content:"";position:absolute;top:-90px;right:-60px;width:230px;height:230px;border-radius:50%;
+    background:radial-gradient(circle,rgba(200,233,106,.13),transparent 65%);pointer-events:none}
+  .scene-head{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);letter-spacing:.06em}
+  .scene-head .m{color:var(--lime)}
+  .raw{align-self:flex-end;background:var(--surface2);border:1px solid var(--line);border-radius:16px 16px 4px 16px;
+    padding:11px 16px;font-size:15px;max-width:88%;opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s}
+  .raw.show{opacity:1;transform:none}
+  .leaf-card{background:var(--surface2);border:1px solid var(--line);border-left:2px solid var(--teal);border-radius:16px;
+    padding:16px 18px;font-size:14.5px;opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s}
+  .leaf-card.show{opacity:1;transform:none}
+  .tchip{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 11px;margin-bottom:9px}
+  .tc-task{background:rgba(90,222,142,.13);color:#7FE0A5}
+  .tc-idea{background:rgba(200,233,106,.13);color:#CDE583}
+  .tc-worry{background:rgba(185,168,230,.14);color:var(--lav)}
+  .leaf-card .t{font-weight:600;margin-bottom:3px}
+  .leaf-card .s{color:var(--muted);font-size:13.5px}
+  .leaf-card .meta{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+  .meta b{color:var(--ink);font-weight:500}
+  .meta .nw{color:var(--teal)}
+
+  section{padding:88px 0;border-top:1px solid var(--line)}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,3.8vw,44px);margin-top:14px}
+  h2 em{font-style:italic;color:var(--lime)}
+
+  /* легенда с растущим папоротником */
+  .legend{display:grid;grid-template-columns:220px 1fr;gap:48px;align-items:center}
+  .fern-wrap{display:flex;justify-content:center}
+  .fern path{stroke-dasharray:200;stroke-dashoffset:200;transition:stroke-dashoffset 1.4s ease}
+  .fern.grow path{stroke-dashoffset:0}
+  .fern circle{opacity:0;transition:opacity .8s ease 1.2s}
+  .fern.grow circle{opacity:1}
+  .legend p{font-size:17.5px;color:var(--muted);max-width:36em;margin:16px 0 0}
+  .legend p b{color:var(--ink);font-weight:500}
+
+  /* внутри */
+  .inside{margin-top:40px;border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:210px 1fr;gap:24px;padding:28px 0;border-bottom:1px solid var(--line);align-items:baseline}
+  .row h3{font-size:20px;font-weight:600}
+  .row h3 .serif{font-style:italic;font-weight:400;color:var(--lime);margin-right:4px}
+  .row p{color:var(--muted);margin:0;font-size:15.5px}
+
+  /* reveal на скролле */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  .final{text-align:center;padding:110px 0 96px;position:relative}
+  .final::before{content:"";position:absolute;left:50%;top:30px;transform:translateX(-50%);width:380px;height:380px;border-radius:50%;
+    background:radial-gradient(circle,rgba(53,201,192,.10),transparent 60%);pointer-events:none}
+  .final h2{font-size:clamp(30px,4.6vw,50px)}
+  .final p{color:var(--muted);font-size:17px;margin:16px 0 34px}
+  footer{border-top:1px solid var(--line);padding:28px 0;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a{color:var(--muted)}
+
+  @media (max-width:840px){
+    .hero{padding:52px 0 44px}
+    .phase-track{grid-template-columns:1fr;gap:40px}
+    .phase-track::before{display:none}
+    .legend{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:6px}
+    section{padding:56px 0}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    .fern path{stroke-dashoffset:0}.fern circle{opacity:1}
+  }
+  .btn:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+</style>
+
+<canvas class="sky" id="sky"></canvas>
+<div class="content">
+
+<div class="wrap">
+  <nav>
+    <div class="brand"><span class="moonmark"></span><span>Moonwort</span></div>
+    <a class="nav-cta" href="https://thinkerapp.cc">Открыть приложение</a>
+  </nav>
+
+  <div class="hero">
+    <p class="eyebrow">AI-порядок в потоке мыслей</p>
+    <h1 class="serif">Мыслям тесно в голове.<br>Выпусти их — <em>раскроются</em>.</h1>
+    <p class="sub">Скидывай в Moonwort всё подряд: идеи, задачи, тревоги, обрывки планов.
+      AI разложит их по проектам, предложит следующий шаг и вернёт тебе ясную голову.</p>
+    <div class="cta-row">
+      <a class="btn btn-glow" href="https://t.me/moonwortbot">Открыть в Telegram</a>
+      <a class="btn btn-line" href="https://thinkerapp.cc">В браузере</a>
+    </div>
+    <p class="cta-note">Без регистрации · бесплатно · с телефона</p>
+  </div>
+</div>
+
+<div class="wrap phases">
+  <div style="text-align:center"><p class="eyebrow">Путь одной мысли</p></div>
+  <div class="phase-track">
+    <div class="phase reveal">
+      <svg class="moon-svg" viewBox="0 0 68 68" aria-hidden="true">
+        <circle cx="34" cy="34" r="26" fill="#101915" stroke="#22302A"/>
+        <path d="M34 8 a26 26 0 0 0 0 52 a20 26 0 0 1 0 -52" fill="#DDE8D8" opacity=".9"/>
+      </svg>
+      <div class="ph-label">новолуние</div>
+      <h3>Хаос — <em>сюда</em></h3>
+      <p>Пишешь или наговариваешь как есть. Три мысли в одном сообщении — AI сам разделит.</p>
+    </div>
+    <div class="phase reveal">
+      <svg class="moon-svg" viewBox="0 0 68 68" aria-hidden="true">
+        <circle cx="34" cy="34" r="26" fill="#101915" stroke="#22302A"/>
+        <path d="M34 8 a26 26 0 0 1 0 52 a8 26 0 0 0 0 -52" fill="#DDE8D8" opacity=".92"/>
+      </svg>
+      <div class="ph-label">растущая</div>
+      <h3>AI <em>раскладывает</em></h3>
+      <p>Тип, проект, следующий шаг со сроком. Ты только подтверждаешь — одной кнопкой.</p>
+    </div>
+    <div class="phase reveal">
+      <svg class="moon-svg" viewBox="0 0 68 68" aria-hidden="true">
+        <circle cx="34" cy="34" r="26" fill="#DDE8D8" opacity=".95"/>
+        <circle cx="26" cy="28" r="3.5" fill="#B9C9B4" opacity=".5"/>
+        <circle cx="40" cy="42" r="5" fill="#B9C9B4" opacity=".4"/>
+      </svg>
+      <div class="ph-label">полнолуние</div>
+      <h3>Обзор <em>недели</em></h3>
+      <p>Что двигалось, что застряло, что закрыть сегодня — и итог недели, написанный AI.</p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap demo-band reveal">
+  <div class="scene" id="scene" aria-label="Демо: как Moonwort разбирает мысль">
+    <div class="scene-head"><span>ВХОДЯЩАЯ МЫСЛЬ</span><span class="m">☾ moonwort разбирает сам</span></div>
+    <div class="raw" id="raw"></div>
+    <div class="leaf-card" id="leaf"></div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap legend">
+    <div class="fern-wrap">
+      <svg class="fern" id="fern" width="170" height="190" viewBox="0 0 100 110" aria-hidden="true">
+        <defs><linearGradient id="fg" gradientUnits="userSpaceOnUse" x1="20" y1="104" x2="80" y2="10">
+          <stop offset="0" stop-color="#C8E96A"/><stop offset=".5" stop-color="#5ADE8E"/><stop offset="1" stop-color="#35C9C0"/>
+        </linearGradient></defs>
+        <g fill="none" stroke="url(#fg)" stroke-width="2" stroke-linecap="round">
+          <path d="M50 104 C50 70 50 45 50 14"/>
+          <path d="M50 84 C36 80 27 71 25 60"/><path d="M50 84 C64 80 73 71 75 60"/>
+          <path d="M50 62 C39 59 32 52 30 43"/><path d="M50 62 C61 59 68 52 70 43"/>
+          <path d="M50 42 C43 40 38 34 37 27"/><path d="M50 42 C57 40 62 34 63 27"/>
+        </g>
+        <circle cx="50" cy="10" r="4.5" fill="url(#fg)"/>
+      </svg>
+    </div>
+    <div>
+      <p class="eyebrow">Почему «Moonwort»</p>
+      <h2 class="serif">Папоротник, который раскрывается лунной ночью</h2>
+      <p>Moonwort — гроздовник, «ключ-трава» из старых травников: по легендам, он распускается
+        в лунном свете и открывает запертые замки. <b>Ночь — время, когда мысли роятся сильнее всего.</b>
+        Moonwort забирает их у тебя, раскрывает суть каждой — и утром вместо гула в голове
+        у тебя проекты и понятные шаги.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow">Что внутри</p>
+    <h2 class="serif">Четыре комнаты <em>ночного сада</em></h2>
+    <div class="inside">
+      <div class="row reveal"><h3><span class="serif">i.</span> Inbox</h3><p>Пишешь мысли — AI разбирает. Спроси «что у меня застряло?» — ответит по твоим проектам. Голос понимает.</p></div>
+      <div class="row reveal"><h3><span class="serif">ii.</span> Проекты</h3><p>Связанные мысли сами собираются в проекты. AI формулирует цель — «зачем это всё».</p></div>
+      <div class="row reveal"><h3><span class="serif">iii.</span> Задачи</h3><p>Срок, время, важность — проставлены без тебя. Сортировка «что делать сейчас».</p></div>
+      <div class="row reveal"><h3><span class="serif">iv.</span> Обзор</h3><p>Живой дашборд недели: прогресс, застрявшее, фокус. Ритм важнее архива.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2 class="serif">Скинь то, что крутится в голове <em>прямо сейчас</em></h2>
+    <p>Через минуту это будет проект с первым шагом. Честно.</p>
+    <div class="cta-row">
+      <a class="btn btn-glow" href="https://t.me/moonwortbot">Открыть в Telegram</a>
+      <a class="btn btn-line" href="https://thinkerapp.cc">Открыть в браузере</a>
+    </div>
+    <p class="cta-note">Без регистрации — открыл и пользуешься</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span>© 2026 Moonwort · растёт при луне</span>
+    <span><a href="https://t.me/moonwortbot">t.me/moonwortbot</a> · <a href="https://thinkerapp.cc">thinkerapp.cc</a></span>
+  </footer>
+</div>
+</div>
+
+<script>
+(function(){
+  /* звёздное небо */
+  var c=document.getElementById('sky'),x=c.getContext('2d'),stars=[];
+  function size(){c.width=innerWidth;c.height=innerHeight;stars=[];
+    for(var i=0;i<90;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.1+.2,p:Math.random()*6.28});
+  }
+  size();addEventListener('resize',size);
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function draw(t){
+    x.clearRect(0,0,c.width,c.height);
+    for(var i=0;i<stars.length;i++){var s=stars[i],a=.25+.35*Math.abs(Math.sin(t/1600+s.p));
+      x.globalAlpha=a;x.fillStyle='#BFE8D2';x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill();}
+    if(!reduce)requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  /* scroll-reveal + рост папоротника */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.id==='fern'||e.target.querySelector&&e.target.querySelector('#fern')){
+          document.getElementById('fern').classList.add('grow');
+        }
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.25});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  io.observe(document.getElementById('fern'));
+
+  /* демо: карточка не пустеет между циклами */
+  var demos=[
+    {raw:"надо наконец сделать лендинг для курса",chip:'<span class="tchip tc-task">Задача</span>',t:"Сделать лендинг курса",s:"Посадочная страница для курса по фотографии",
+     meta:'<span>📁 <b>Курс по фотографии</b></span><span>✅ набросать структуру лендинга · <b>~30 мин · на неделе</b></span>'},
+    {raw:"а что если запустить подкаст про фриланс",chip:'<span class="tchip tc-idea">Идея</span>',t:"Подкаст про фриланс",s:"Разговоры с фрилансерами про деньги и клиентов",
+     meta:'<span>📁 <span class="nw">✨ новый проект</span> — <b>«Подкаст про фриланс»</b></span><span>✅ записать пилот на диктофон · <b>~20 мин</b></span>'},
+    {raw:"переживаю, что не успеваю с релизом",chip:'<span class="tchip tc-worry">Тревога · бережно</span>',t:"Тревога о сроках релиза",s:"Записал без давления. Вернёмся на обзоре недели — посмотрим, что снять с плеч.",
+     meta:'<span>☾ без шага — иногда мысль просто нужно <b>отпустить</b></span>'}
+  ];
+  var raw=document.getElementById('raw'),leaf=document.getElementById('leaf'),i=0,timer;
+  function play(){
+    var d=demos[i];
+    raw.classList.remove('show');
+    setTimeout(function(){raw.textContent=d.raw;raw.classList.add('show');},250);
+    setTimeout(function(){
+      leaf.innerHTML=d.chip+'<div class="t">'+d.t+'</div><div class="s">'+d.s+'</div><div class="meta">'+d.meta+'</div>';
+      leaf.classList.add('show');
+    },1700);
+    i=(i+1)%demos.length;
+  }
+  play();
+  timer=setInterval(play,5200);
+  var scene=document.getElementById('scene');
+  scene.addEventListener('mouseenter',function(){clearInterval(timer);});
+  scene.addEventListener('mouseleave',function(){timer=setInterval(play,5200);});
+})();
+</script>
+</html>

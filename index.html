@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Moonwort — AI-порядок в потоке мыслей</title>
+<meta name="description" content="Скидывай мысли как есть — Moonwort разберёт каждую, разложит по проектам и подскажет первый шаг. Без регистрации, в Telegram или браузере.">
+<meta name="theme-color" content="#090e0c">
+<meta property="og:title" content="Moonwort — AI-порядок в потоке мыслей">
+<meta property="og:description" content="Скидывай мысли как есть — Moonwort разберёт каждую, разложит по проектам и подскажет первый шаг.">
+<meta property="og:url" content="https://moonwort.ru">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/jpeg" href="data:image/jpeg;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     Moonwort — «Ночной сад». Финальный лендинг на основе
+     прототипа B: единый ночной мир, серифные заголовки,
+     живое демо в hero, легенда о ключ-траве.
+     ============================================================ */
+  :root{
+    --bg:#090e0c; --bg2:#0d1411; --surface:#121a16; --surface2:#17211c;
+    --ink:#eaf2ec; --muted:#8fa398; --line:#22302a;
+    --lime:#a8e063; --teal:#2fd4b0; --cyan:#3ec9d6;
+    --grad:linear-gradient(115deg,#c8e96a,#5ade8e 45%,#35c9c0);
+    --lav:#b9a8e6;
+    --ease:cubic-bezier(.22,.9,.3,1);
+  }
+  *{box-sizing:border-box}
+  html{background:#090e0c;scroll-behavior:smooth}
+  body{background:radial-gradient(1200px 700px at 75% -10%,#12211b 0%,var(--bg) 55%);color:var(--ink);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;margin:0;-webkit-font-smoothing:antialiased}
+  .serif{font-family:"Spectral","Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{text-wrap:balance;margin:0}
+  a{color:inherit}
+  .eyebrow{font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--teal);font-weight:600}
+
+  /* небо: звёзды, светлячки, редкие падающие звёзды */
+  .sky{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .content{position:relative;z-index:1}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:600;font-size:17px;letter-spacing:.02em}
+  .brand img{width:34px;height:34px;border-radius:9px;display:block;box-shadow:0 0 24px rgba(90,222,142,.25)}
+  .nav-cta{font-size:14px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:8px 16px;
+    transition:border-color .25s,color .25s,box-shadow .25s}
+  .nav-cta:hover{border-color:var(--teal);color:var(--ink);box-shadow:0 0 18px rgba(47,212,176,.15)}
+
+  /* hero + стартовая последовательность */
+  .hero{display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center;padding:64px 0 88px}
+  .hero h1{font-size:clamp(36px,5vw,58px);line-height:1.13;font-weight:500;letter-spacing:-.01em}
+  .hero h1 em{font-style:italic;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .sub{font-size:18.5px;color:var(--muted);margin:22px 0 30px;max-width:30em}
+  .hero .sub b{color:var(--ink);font-weight:500}
+  .rise{opacity:0;transform:translateY(18px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .go .rise{opacity:1;transform:none}
+  .go .rise:nth-child(1){transition-delay:.05s}
+  .go .rise:nth-child(2){transition-delay:.18s}
+  .go .rise:nth-child(3){transition-delay:.34s}
+  .go .rise:nth-child(4){transition-delay:.5s}
+  .go .rise:nth-child(5){transition-delay:.62s}
+  .scene-rise{opacity:0;transform:translateY(24px) scale(.985);transition:opacity .9s var(--ease) .45s,transform .9s var(--ease) .45s}
+  .go .scene-rise{opacity:1;transform:none}
+
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;border-radius:999px;padding:13px 24px;font-size:15.5px;font-weight:600;text-decoration:none;cursor:pointer;
+    transition:transform .15s var(--ease),box-shadow .3s,border-color .25s}
+  .btn:active{transform:scale(.97)}
+  .btn-glow{background:var(--grad);color:#0a1410;box-shadow:0 0 32px rgba(90,222,142,.28)}
+  .btn-glow:hover{box-shadow:0 0 46px rgba(90,222,142,.45);transform:translateY(-1px)}
+  .btn-line{border:1px solid var(--line);color:var(--ink)}
+  .btn-line:hover{border-color:var(--teal);transform:translateY(-1px)}
+  .cta-note{font-size:13px;color:var(--muted);margin-top:12px}
+
+  /* авто-демо */
+  .scene{background:linear-gradient(180deg,var(--surface),var(--bg2));border:1px solid var(--line);border-radius:20px;padding:22px;min-height:380px;
+    display:flex;flex-direction:column;gap:12px;position:relative;overflow:hidden}
+  .scene::before{content:"";position:absolute;top:-90px;right:-60px;width:220px;height:220px;border-radius:50%;
+    background:radial-gradient(circle,rgba(200,233,106,.14),transparent 65%);pointer-events:none}
+  .scene-head{display:flex;justify-content:space-between;font-size:12.5px;color:var(--muted);letter-spacing:.06em}
+  .moon{color:var(--lime)}
+  .chat{display:flex;flex-direction:column;gap:11px}
+  .qbub{align-self:flex-end;background:var(--surface2);border:1px solid var(--line);border-radius:14px 14px 4px 14px;
+    padding:10px 15px;font-size:14.5px;max-width:88%;opacity:0;transform:translateY(6px);
+    transition:opacity .4s var(--ease),transform .4s var(--ease)}
+  .qbub.show{opacity:1;transform:none}
+  .qbub .caret{display:inline-block;width:2px;height:15px;background:var(--teal);vertical-align:-2px;margin-left:1px;animation:caret 1s steps(1) infinite}
+  @keyframes caret{50%{opacity:0}}
+  .typing{display:flex;gap:5px;padding:4px 2px;opacity:0;transition:opacity .3s}
+  .typing.show{opacity:1}
+  .typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:tp 1.1s infinite}
+  .typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+  @keyframes tp{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+  .ans{background:var(--surface2);border:1px solid var(--line);border-left:2px solid var(--teal);border-radius:14px;
+    padding:15px 17px;font-size:14.5px;opacity:0;transform:translateY(10px);
+    transition:opacity .5s var(--ease),transform .5s var(--ease)}
+  .ans.care{border-left-color:var(--lav)}
+  .ans.show{opacity:1;transform:none}
+  .tchip{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:3px 11px;margin-bottom:9px}
+  .tc-task{background:rgba(90,222,142,.13);color:#7fe0a5}
+  .tc-idea{background:rgba(200,233,106,.13);color:#cde583}
+  .tc-worry{background:rgba(185,168,230,.14);color:var(--lav)}
+  .ans .t{font-weight:600;margin-bottom:2px;font-size:15px}
+  .ans .lead2{color:var(--muted);font-size:13px;margin:2px 0 4px}
+  .steplist{margin:8px 0 0;padding:0;list-style:none}
+  .steplist li{display:flex;align-items:center;gap:9px;font-size:13.5px;padding:8px 0;border-top:1px solid var(--line);
+    opacity:0;transform:translateX(-6px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+  .steplist li.in{opacity:1;transform:none}
+  .steplist li .bx{width:15px;height:15px;border:1.5px solid var(--muted);border-radius:4px;flex-shrink:0}
+  .steplist li .tm{margin-left:auto;font-size:12px;color:var(--teal);white-space:nowrap}
+  .ans .meta{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);display:flex;flex-direction:column;gap:8px}
+  .ans .meta b{color:var(--ink);font-weight:500}
+  .ans .meta .nw{color:var(--teal)}
+  .est{display:inline-flex;align-items:center;gap:7px;background:rgba(47,212,176,.12);color:#7fe0d0;
+    border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:500;align-self:flex-start}
+  .est b{color:#bff0e4!important}
+  .qrow{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;margin:7px 0}
+  .qrow .st{flex-shrink:0;margin-top:1px}
+  .qrow b{font-weight:600}
+  .qrow span{color:var(--muted)}
+  .dots{display:flex;gap:6px;justify-content:center;margin-top:auto;padding-top:10px}
+  .dots i{width:6px;height:6px;border-radius:50%;background:var(--line);transition:background .3s,transform .3s}
+  .dots i.on{background:var(--teal);transform:scale(1.25)}
+
+  section{padding:84px 0;border-top:1px solid var(--line)}
+  h2{font-size:clamp(27px,3.6vw,40px);font-weight:500;margin:14px 0 0}
+  h2 em{font-style:italic;color:var(--lime)}
+
+  /* scroll-reveal */
+  .reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.12s}
+  .reveal.d2{transition-delay:.24s}
+  .reveal.d3{transition-delay:.36s}
+
+  /* легенда: знак-вихрь как в логотипе */
+  .legend{display:grid;grid-template-columns:auto 1fr;gap:48px;align-items:center}
+  .vortex{width:156px;height:156px;flex-shrink:0;
+    opacity:0;transform:scale(.66) rotate(-70deg);
+    transition:opacity 1s var(--ease),transform 1.2s var(--ease)}
+  .vortex.in{opacity:1;transform:none}
+  .vortex .blades{transform-origin:50px 50px;animation:spin 34s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .legend p{font-size:18px;color:var(--muted);max-width:36em;margin:14px 0 0}
+  .legend p b{color:var(--ink);font-weight:500}
+
+  /* петля */
+  .loop{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-top:44px}
+  .phase{background:var(--bg2);padding:30px 26px;transition:background .35s}
+  .phase:hover{background:var(--surface)}
+  .phase .ph-n{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:14px;font-weight:600}
+  .phase h3{font-size:19px;font-weight:600;margin-bottom:9px}
+  .phase h3 .g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .phase p{color:var(--muted);font-size:14.5px;margin:0}
+
+  /* внутри — список */
+  .inside{margin-top:40px;border-top:1px solid var(--line)}
+  .row{display:grid;grid-template-columns:200px 1fr;gap:24px;padding:26px 0;border-bottom:1px solid var(--line);align-items:baseline;transition:padding-left .3s var(--ease)}
+  .row:hover{padding-left:10px}
+  .row h3{font-size:20px;font-weight:600;display:flex;align-items:center;gap:12px}
+  .row h3 .ph{width:20px;height:20px;flex-shrink:0;filter:drop-shadow(0 0 6px rgba(200,233,106,.25))}
+  .row p{color:var(--muted);margin:0;font-size:15.5px}
+
+  .final{text-align:center;padding:100px 0 90px;position:relative}
+  .final::before{content:"";position:absolute;left:50%;top:36px;transform:translateX(-50%);width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle,rgba(53,201,192,.10),transparent 60%);pointer-events:none}
+  .final h2{font-size:clamp(30px,4.4vw,48px)}
+  .final p{color:var(--muted);font-size:17px;margin:16px 0 34px}
+  footer{border-top:1px solid var(--line);padding:28px 0;font-size:13px;color:var(--muted);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a{color:var(--muted)}
+
+  @media (max-width:840px){
+    .hero{grid-template-columns:1fr;gap:40px;padding:36px 0 64px}
+    .loop{grid-template-columns:1fr}
+    .legend{grid-template-columns:1fr}
+    .row{grid-template-columns:1fr;gap:6px}
+    .row:hover{padding-left:0}
+    section{padding:56px 0}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    .rise,.scene-rise,.reveal,.vortex{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+  .btn:focus-visible,.nav-cta:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+</style>
+
+<canvas class="sky" id="sky"></canvas>
+<div class="content">
+
+<div class="wrap">
+  <nav>
+    <div class="brand"><img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QC8RXhpZgAATU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABIAAAAAQAAAEgAAAABAAeQAAAHAAAABDAyMjGRAQAHAAAABAECAwCgAAAHAAAABDAxMDCgAQADAAAAAQABAACgAgAEAAAAAQAAAMCgAwAEAAAAAQAAAMCkBgADAAAAAQAAAAAAAAAA/8AAEQgAwADAAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMAAgICAgICAwICAwUDAwMFBgUFBQUGCAYGBgYGCAoICAgICAgKCgoKCgoKCgwMDAwMDA4ODg4ODw8PDw8PDw8PD//bAEMBAgICBAQEBwQEBxALCQsQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEP/dAAQADP/aAAwDAQACEQMRAD8A/n/ooq3bWxlO5uEFVCDk7ITdiGKGSY/IOPXtWhHZRry53H8hVxVVBtAwKdgV3ww8VuZObI1iRfuqBUnFFHNb2JCij2paACjGaXFL2oFcbij2p9GPagVxlJ1p/tim0DuJijFLRQMTgc0UUtACEZqJo0bhlB/CpaKGgKMllG33DtP6VnywyRHDj8e1buBTWUMNrDIrnqYdPYpTOfoq1cW5iO5eVP6VVrhlFp2Zqmf/0PwEhiMsgXt3+lbaqFAVegqpZR7Y9/dv5VdFejh6do3MZvUWiiityQpaSloAWjFKBmnjpgUEtjQAKXH4U8L6VIIzQZuRDjikwetWtntTSnOBQT7Qr0hGa9t8E/s9fFr4gQpd6DoUkdlJytzdEW8JHqrPgt/wEGvcoP2EPibNbiSXW9KhmI/1ZeZufQsIsVMJqTtHU+TzHj/JsJP2eIxUVLte9vW17fM+HTSV738Sf2bfiz8MLSTVdd0oXWmR/evLJ/PiQergAMg92UD3rwXrVyi1oz6HKs4wuNpe2wlRTj3TuJS0nHSikemLRRmkoAKSlooAY6hlKtyDWHLGYnKGt41RvY8oHHVf5Vz4iF1cuD1P/9H8Hol2Iq+gp+KQUor2Ec4tFLSYoAWlAyaSpAO9AmxRkcVIq5600DNWo1z1oMJysIq1MqU8J6V0nhTwtrXjTxFYeFvDtubrUNRlWKJB6nqzHsqjknsBWdatGnBzm7JatnDXxEYRc5uyQ7wf4J8SePdet/DfhWye9vbg8Ko+VV7u7dFUdyeK/VT4O/speCfh1BBq3iaKPxB4hADGSVd1tA3pFG3BI/vsM+gFer/B34MeHvg14YTSNOVbnVLhQ19e4w80n91c8iNf4V/E8mvVWBr84fE7xtXlpaQ/P1/yP5Y8RPEjE4xyw2Ek4UvLRy9ey8vv8olXAAA4HAFWUWmKuasIK/SMkp3SPwDEOxKYo5o2hlQSRyAqysAysp4IIPBB7g1+Qf7YHwAs/hjrlv428IW/k+HNckZZIVHyWl397YvpHIMlB2II6Yr9hY1HFeafGrwLB8RfhZ4j8JyoHlubV5Lcn+C4hHmRMPfcuPoTX21bLlUovutj67wx4zrZPm1Kal+6m1Ga6NPS/rHdfNdT+fOlpORwwwR1FLXxh/ochKKKWgBKKWigBKimUtE6+oqXFIcmk1dWA//S/CFelLSDpS9a9g5xaSlooAUetPU0wVIMGghkyYzVtBwKqKOatIeKDmqlnIxxX6v/ALFHwej8N+EH+KesQD+1PECtHZbhzDZA4LD0MzD/AL5A9a/Mz4eeE7rx/wCOtB8F2eRJrN5DbZH8Kuw3t/wFcn8K/ojg0yx0ixt9J0yIQ2djEkECAYCxxKFUAfQV+MeLfEjowpZfTes9Zei2Xzf5H5b4j5hKGGWGg/i39P8Ag/oYsy5FUinNbEsfWq5hr5fhfFq6P5dzWhqzMwasRrVnyiTnFOER7V/SPDVWMkj4LGwaJIxUnG5QwypI49RTVBWmyzRW0b3M5xHCC7n0VRk/oK/T8Oko3PJjBykox3Z/OV4zso9O8Za9p8X3LbULqNfosrAVzhFbPiDUBrHiDVNXByL67nnH0kkZh/OsnbX5fLc/1Lw91Tipb2RHiinEGm4NI3uJRS0lAwpDRSHpQB//0/wh6igCgUtewc4UUUCgBR1qUetRA96kBoJkTKcVZRgKpg1IGoMJxPtr9gjQItb/AGgbe+mUMui6be3gz2cqsKn8DJmv2juIeTX5Ff8ABN143+NGv27f6yTQZyv/AAG4hz/Ov2PntTnpX8b+MeYuPEUoS6Rjb8X+bPyTjvCOde/kchJblqi+xk8YrqDZ+1TLYcZxUcOZwlJan4rmOTyd3Y5D7Kw4IpTDtFdZLY7Rkiudv5EgBycV/TXBmbqVlc/Ns6yx09zKcAV8xftX/E+2+HPwl1K2t5gmr+I0fT7NAfmxIMTSY9EjJ5/vEV23xY+OHgn4UaU2oeJbwNcupNvZRENczt2Cp2X1ZuB+lfjD8WPin4k+MPi2XxT4jYRKo8q1tkJMdtADkIuepPVm6sfwFfrWKzdRouEd2fc+EvhpiMdjaeY4qHLQg7q/2mtkvK+7+R5QEwMCl2mrQQCmlea+XSP7TVUrYNNIBqyy1CRikaxlcgIweaSpTzUVBomJSGnUlBR//9T8IRS00Utewc4tFFFAC0o60z+te6fBn9nT4q/HW8aPwRpZ/s6Fts+o3JMVnEe4MhB3t/soGb2rz80zbDYKi8Ri6ihBbtuyM6lSMVeTseIg0Zr9kvBn/BOX4daBbRz/ABA1q88Q3uAWjtj9ktgfQY3SMPclfpXpd1+yX8ArK1MNr4PtzgY3PLM7n8Wkr8oq+OeTufJQUprulZfi0/wPj8y4zw2HduVv0/4J+bX7DPi+38JftLeFxeSCO31sXGlOScDddxlYs/8AbQL+Nf0HTWfJBGMV+R3jP9mL4f6Pf2+ueE7afQb+wlS4gltpnbZLEwdG2yFhwwBr9cPBWv2vjzwlp3iq1I3XkYE6jrHcJxKpHbDZI9iK/nnx0zSjisXh83wyaUo8kr9Gm2vvTf3HkwzfCZun7BNSjunvYZHYFz0rTTTAF6V0VtpxyOK2XsfLgZyMYGa/Nso4hakrM4a3C/NFto8U8W6np/h3TbjUtSnjtba2QySySMEREXkszHgAetflV8Vv2ovH3jm8uPDvwA0a5u7bJRtYMBZW7HyAw2gejv8AgB1r6g+Ml8vxX8Rtork3GgabLxb5/c3MyH78oH31U/cU/Ln5iCcYk0bwbFawJFFEI4k+6igKq+wA4Ff1hwvnSwNCLqazffp/wT8ZxWZ4HD13UjQVWS25vhXy+187I/KmT9nD49+K7yXWdWsjdXtwd0kt3eRmVifUsx/KsXWP2b/jRocRmn8MXFyg72pS4/SMlv0r9oE0hbdcBahe3KnI6197geMatR62Ot+Mua05e9ShbtZr9T8Ar3T73Tbl7PUbeS1uIzho5UZHX6qwBqmV7jiv3U8YeA/CPjyybT/GGkwanGQQruuJo890lXDqfoceor84vjZ+y7rPgCG48TeDnk1jw/HlpVYZurRfVwow6D++o4/iA619pgc1jV0krM/RuE/FnBZhNUK69lUe13o/R6a+T/E+RHWq7jHFXWwRUDrxmvXP1ynIpHOajYDrVhhUR9Kk7Isi70hz9KU0hoNT/9X8IBTqaKdmvYOcTml6CitfQND1DxPr2m+G9JTzb3VrmG0gX1kncIo/M1nWqxpwc5uySu/RAfZ/7GX7It3+0HrsnirxaJLTwLo0oSd0ykl9OOfs8TdgBjzHHQHA+Y8fvhpnhrQ/Cmi2vh3w1YQ6ZpdhGI4LaBAkcaL2AH6k8k8kk1e+Gfw10P4R/DrQvh14fjCWmh2qQFgMGWbGZZW9WkcsxPvW1eRk54r/AC+8RPFTE8R5lKs5NUItqnHol3a/me7+7ZHPmeEajZnn1/DknPeuQvbMNkYr0W8j61yt1GckioyjGNWPybOcErs8X8R+HRdxMNuSRXPfCzxnd/CjxHNY6ory+HtTcfaFAyYJOgmQew4Ydx7gV7dNbq6nIrkdV8M2d8GLRgk+1fcPMKdfDywmKjeEv6TXmj5fAQqYXERr0HaS/qzPs3So7PULaG+sZUube4UPHJGQyOp6EEVj/FEXWm/DvWLiwO24eHykYdVMzBM/gCa+ZvAWt+KPh7P5GlyC40123PaTZMeT1Kd0J9vxBr6mj8Z+G/Gnh+fSr6CW0eZR8rAOoZSGB3D3HoK/P8DlP1HEc7mpRTuvO3Rn7pQzLD5hgqlJe5UlFr5tdGfFfhf4etbxI7R849K7uXw8LeP7mMV7HPr/AMP9JkGn3eoR2so4zKrIv/fRG39ag1aztpYRPbMssUg3I6EMrA9CCOCK+0ocWYqpUUqsWk9j8fx/AuHpQfJJSa3sz5/urArkEVztzbhScCvTNTttpOK4q7jAJ4r9n4azSUkj8YzzLFTbSRx80WD0qi6dQQCCCCDyCD1B9RW5cqBmstlLZxX7rklbmirn53i6bi7o/L79qH4Dw+DLlvH/AIPtvL0O8kxd26D5bSdzwyjtE56D+FuOhFfGbYI4r98dc0XTfEOkXuhazCLix1CJ4Zoz0ZHGD+I6g9jg1+IPxG8F3vw88bat4PviWOnzFY3Ix5kLfNG//AkIP1r76inyo/qfwd44nmOHlgsS71aez6uP+a2fyOCcfnULVO/NQGrZ+5Q2IT1pM0p6nNIaRsj/1vwhFLTRTq9g5xa+hv2SVs2/ac+GC3wBhOvWeQemd/y5/wCBYr54rc8M+ItR8IeJdJ8WaS2290a7gvIT28y3cSLn2JGDXjcRZfLF5fiMLB2c4SivVxa/UqnK0kz+xK6UnOa5m7TqTVfwB490P4p+AdC+IfhuQSafr9pHdJg5KM4+eNv9qN8ow9Qa07tc5Ff45YejUw9aVCtG0otpp9GtGjvzSndXRxl4mc1zF2g54rsb1MZrmbtBzmv0LKa2x+V5xR3OVmXAJqkTjqK07pME1izNjJFff4OHOj89xcuRlkSR4yRV6DWVshiPiuVluCg4rGurtiOte/huH41X7yPIq8Rzor3GU/HVymqRszck18/H433nwMjGoauz3Xh2W5hhubfd/qlmbaZYgejKPmKj7wGOuDXr2oyPIpBPFfmn+194yt5tU0/wDYuGa0/0u7Kno7giKM+4Ulj9RX7NwdwdQxVsJVjeD3/rucHDOMr5hmsIJuyu5en/AAdj9jJtRstTtItR0+dbi1ukWWKVDlXjcblYHuCCDXJ3eMk18lfsY/EK48S/CRfD2oSb5/DVw1opJ5+zuPMiH4ZZR7AV9U3Muee1ZYHhueCxM8PL7Lt/keLxY3RxFShPeLsZNwNxIrNdcZrQkYZNUZRnnNftHD+Feh+T4+e5SkGc1+d/7b/g5Y5fD/j22jwZd+n3LDuVzJCT743j8K/RJ8V82/tX6THqfwN12VgC+nPbXSH0KSqhx+DkV+o0sJ+5bPd8MM3lhM/w0k9JPlfpLT87M/Hxz2qFjTic81GTXln99RRGaQ0tNNBsf//X/CAU6minCvYOcKXqMUlLQB+hf7DP7ZDfAXVm+HfxAleXwFrE28S8s2l3L8GZVHJhfjzVHI++Ocg/0A22paZrem22s6LdxX+n3saywXEDiSKWNuQyOpIIPqK/jzK5r6i/Z8/a6+LH7PE4sNBuV1jwzI26bR71ma3BJ+ZoGHzQufVflP8AEpr+XvGL6PsM4rSzXKWoYh/FF6Rn536S89n1s9TT2zceSR/SjeJ1rl7xetfK3wu/b2+AXxQghttU1M+DtZkADWmqkRxFj2juh+6Yem7YfavqVLyz1O1W+0y4jvLaUZWWB1ljYH0dCQfzr+TsTwvmWV1fZY+hKD81p8ns/kz4vOqLV9DnblD3rAuRjNdNdDnFc7cDJIHNfWZVU2PyvNYHO3IJzWBcA81N4s8UeGfB9i2o+K9VtdIt0Gd91MkWR/shiC34AmvgT4t/txeHdPjm0n4TWx1a9IK/2hcoUtYz6xxnDyEdt21frX7Pwpw7jca17Cm7d3ovv/yPlaXDGNx0+WhB27vRL5ntfx0+M2hfCPQGlmZLnXLtSLKyz8zt08yQD7sa9z3PA56fjzqmrajr2qXeuaxO1xe30jTTSN1Z3OSf8B2qLXvEWu+LNYufEPiW+k1DULtt0k0rZY+gHYKOgAwAOgrNMmBiv6e4d4fp4CjyJ3k93/XQ/aOFOEKOV0XGPvTl8Uv0Xkj72/YZ1RoNa8VaeWwkkFtLj3RmXP8A49X6StNuHPNfkF+yJ4pt9E+K40q7kCJrlq9shJ6zKRIg+p2kD3r9all+UZryMzyfnxcqlt7H89+LkJUM3m3opKLX3W/NFmVuDVJzmnO+RUJbNfYZPltraH4via9yNzXhf7SkqQ/Azxe8nRrVFHuWmjAr3M818a/tr+L4NI+Gtn4Sjf8A0vX7pCUzyLe1+dj9C+wfnX3c6Sp4acn2Pf8ADvAzxefYSlTX2036R1f4I/LDNNY0Z4ptfGH+iKQhpDS5pDQUf//Q/CEU6oYm3IreoqWvYRzhQBS0UAHSl60lFADWTIPfNdJ4e8ZeMfCEon8Ka5faO472dzLB+YRgDXOinA9qyq0YTXLNXXmS0e+2n7Vf7R9nGIYfiDqjIOgkkWT9XUms/Vf2kfj7rcZi1Lx7qzxt1CXBi/8ARYU14mOTTxwK86GQYGMuaNCCf+Ff5HM8JSvfkX3I0L/UNS1i6a91e7mvrhjkyTyNK5/4E5JqJAAKrq1Shq9VRS0QSiWlbtSk1W3YpC3HWmZ+zLdre3enXcGoWEzW9zbOssciHDI6HIYH1Br9W/gf+0/4X+Ien2+ieLbqLR/E0YCMsrbIbtgMb4nPAY90Jzn7uR0/JZmqBhk1EoJu58lxjwLhM7oKliLxlH4ZLdf5ruvyP6GTuHXvTc9jX4a+GfjZ8WvBsCWnh3xTe29snCwu/nxKPQJKGUfgK7C6/ap+PV3AbdvExiB4LRW1vG/4MseR+FevhMfCnvE/n7F/R2zL2lqWJg493zJ/ck/zP1q8bePfCvw70SbxB4tv0srWMHapOZZmHRIk6ux9B074FfjJ8YPihqvxb8a3Pim/UwW4Hk2dvnIgt1J2r7sSSzHuT6YriNe8ReIfFN+dU8TalcapdnjzbmRpGA9BuJwPYcVi0sfmkq6UbWSP2bw48K8NkPNWcvaVpKzlayS7RX5vqJR0oorzD9XDgU08UtRTNtiY57Um7K4I/9H8E7OTKbD1X+VX6wIpDE4cfjW4rhlDL0Nehh6l1YxmtSSko60tdBIlLRRQAUUUUALmn5plL70CaH54pQ1R5pc0EuJKGpN1Mzg0UE8o4t6UzNBNMoKSFzRmkxRQVYUnNJRRQMSilpOtACGqF7IAgjHU8n6VddlQFmOAKw5ZDK5c965sTUsrFwR//9L+f+rVvcGI7W5Q1Voqoyad0Jo6FHVgCpyKdWBHK8RyhxWhHfIeHG2u6GIT3M3BmhRUKzRP0YHNS5Fbpp7EC0daTNGaYC0UmRRkdKAHd6SkyKM0AOzRmm5ozQA7NJSHijNAC0U3NG6gB31pKTIqN5ok+8wFJtLcLEtMZlQFnOBVKS+QcRjJ9T0qhJK8py5zXPUxKWxagS3FwZjgcKO1VqKK4ZSbd2ao/9k=" alt="Moonwort"><span>Moonwort</span></div>
+    <a class="nav-cta" href="https://thinkerapp.cc">Открыть приложение</a>
+  </nav>
+
+  <div class="hero" id="hero">
+    <div>
+      <p class="eyebrow rise">AI-инбокс для мыслей</p>
+      <h1 class="serif rise" style="margin-top:16px">Одно место для всех мыслей —<br>и <em>порядок</em> в них.</h1>
+      <p class="sub rise">Записывай всё подряд: идеи, задачи, тревоги, обрывки планов. Moonwort собирает их вместе,
+        раскладывает по проектам и подсказывает, с чего начать.</p>
+      <div class="cta-row rise">
+        <a class="btn btn-glow" href="https://t.me/moonwortbot">Открыть в Telegram</a>
+      </div>
+      <p class="cta-note rise">Без регистрации · бесплатно · работает с телефона</p>
+    </div>
+
+    <div class="scene scene-rise" id="scene" aria-label="Демо: как Moonwort разбирает мысли">
+      <div class="scene-head"><span id="sceneLabel">НОВАЯ МЫСЛЬ</span><span class="moon" id="sceneRight">☾ moonwort разбирает сам</span></div>
+      <div class="chat" id="chat"></div>
+      <div class="dots" id="dots"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap legend">
+    <svg class="vortex" id="vortex" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <linearGradient id="vg" gradientUnits="userSpaceOnUse" x1="30" y1="80" x2="78" y2="28">
+          <stop offset="0" stop-color="#e2f22c"/>
+          <stop offset=".42" stop-color="#8ae858"/>
+          <stop offset=".74" stop-color="#42da94"/>
+          <stop offset="1" stop-color="#2ecfc2"/>
+        </linearGradient>
+        <radialGradient id="vglow" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#fbffe0" stop-opacity=".92"/>
+          <stop offset="1" stop-color="#fbffe0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g class="blades" fill="url(#vg)">
+        <path d="M50 50 C51 38 44 27 49 18 C55 7 74 8 80 22 C85 34 78 47 65 49 C56 50.4 54 47 50 50 Z"/>
+        <path d="M50 50 C51 38 44 27 49 18 C55 7 74 8 80 22 C85 34 78 47 65 49 C56 50.4 54 47 50 50 Z" transform="rotate(120 50 50)"/>
+        <path d="M50 50 C51 38 44 27 49 18 C55 7 74 8 80 22 C85 34 78 47 65 49 C56 50.4 54 47 50 50 Z" transform="rotate(240 50 50)"/>
+      </g>
+      <circle cx="50" cy="50" r="10" fill="url(#vglow)"/>
+    </svg>
+    <div>
+      <p class="eyebrow reveal">В чём суть</p>
+      <h2 class="serif reveal d1">Как заметки — только <em>разбирает сам</em></h2>
+      <p class="reveal d2">Всё хранится в одном месте, как в обычной заметочнице — только не превращается в свалку.
+        <b>Moonwort сам приводит записи в порядок</b>, из которого видно, за что браться.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow reveal">Петля Moonwort</p>
+    <h2 class="serif reveal d1">Из хаоса — в <em>ритм</em></h2>
+    <div class="loop">
+      <div class="phase reveal"><div class="ph-n">Хаос</div><h3>Скидываешь <span class="g">как есть</span></h3>
+        <p>Текстом или голосом, в любом виде. Хоть три мысли в одном сообщении — Moonwort сам разделит и ничего не потеряет.</p></div>
+      <div class="phase reveal d1"><div class="ph-n">Структура</div><h3>AI <span class="g">раскладывает</span></h3>
+        <p>Тип, проект, следующий шаг со сроком и оценкой времени. Согласен — подтвердил одной кнопкой. Нет — тут же поправил.</p></div>
+      <div class="phase reveal d2"><div class="ph-n">Ритм</div><h3>Обзор <span class="g">показывает картину</span></h3>
+        <p>Что сдвинулось, что застряло, что пора отпустить — видно в любой момент. Загляни хоть в понедельник, хоть посреди ночи.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <p class="eyebrow reveal">Что внутри</p>
+    <div class="inside">
+      <div class="row reveal"><h3><svg class="ph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0d1411" stroke="#5ade8e" stroke-width="1.6"/></svg> Inbox</h3>
+        <p>Пишешь — Moonwort разбирает. Спроси «что у меня застряло?» — ответит по твоим проектам, а не общими советами. Голосовые понимает.</p></div>
+      <div class="row reveal"><h3><svg class="ph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#0d1411" stroke="#5ade8e" stroke-width="1.6"/><path d="M12 2.4 A9.6 9.6 0 0 1 12 21.6 Z" fill="#a8e063"/></svg> Проекты</h3>
+        <p>Связанные мысли сами собираются вместе. У каждого проекта — цель, сформулированная словами, а не тегом: зачем это всё затевалось.</p></div>
+      <div class="row reveal"><h3><svg class="ph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#a8e063"/><path d="M12 2.4 A9.6 9.6 0 0 0 12 21.6 A4.2 9.6 0 0 1 12 2.4 Z" fill="#0d1411"/></svg> Задачи</h3>
+        <p>Один список «что делать сейчас» по всем проектам. Сроки, оценки времени и важность уже проставлены — осталось выбрать и сделать.</p></div>
+      <div class="row reveal"><h3><svg class="ph" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#a8e063"/><circle cx="9" cy="9.5" r="1.9" fill="#0d1411" opacity=".16"/><circle cx="14.5" cy="14" r="2.4" fill="#0d1411" opacity=".13"/></svg> Обзор</h3>
+        <p>Итог недели: прогресс, застрявшее, фокус. Возвращает к важному вместо того, чтобы копить бесконечный архив заметок.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="final">
+  <div class="wrap">
+    <h2 class="serif reveal">Скинь то, что крутится в голове <em>прямо сейчас</em></h2>
+    <p class="reveal d1">Через минуту у этой мысли будет проект и первый шаг.</p>
+    <div class="cta-row reveal d2" style="justify-content:center">
+      <a class="btn btn-glow" href="https://t.me/moonwortbot">Открыть в Telegram</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+  <footer>
+    <span>© 2026 Moonwort</span>
+    <span><a href="https://t.me/moonwortbot">t.me/moonwortbot</a> · <a href="https://moonwort.ru">moonwort.ru</a></span>
+  </footer>
+</div>
+</div>
+
+<script>
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- небо: звёзды + светлячки + редкие падающие звёзды ---- */
+  var c=document.getElementById('sky'),x=c.getContext('2d'),stars=[],flies=[],meteor=null,nextMeteor=6000;
+  function size(){
+    c.width=innerWidth;c.height=innerHeight;stars=[];flies=[];
+    for(var i=0;i<90;i++)stars.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.1+.2,p:Math.random()*6.28});
+    for(var j=0;j<4;j++)flies.push({x:Math.random()*c.width,y:c.height*.3+Math.random()*c.height*.6,
+      p:Math.random()*6.28,sp:.12+Math.random()*.18,amp:14+Math.random()*22});
+  }
+  size();addEventListener('resize',size);
+  function draw(t){
+    x.clearRect(0,0,c.width,c.height);
+    /* звёзды мерцают */
+    for(var i=0;i<stars.length;i++){var s=stars[i],a=.25+.35*Math.abs(Math.sin(t/1600+s.p));
+      x.globalAlpha=a;x.fillStyle='#bfe8d2';x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill();}
+    /* светлячки дрейфуют */
+    for(var j=0;j<flies.length;j++){var f=flies[j];
+      var fx=f.x+Math.sin(t/2400*f.sp*6+f.p)*f.amp*2, fy=f.y+Math.cos(t/3100*f.sp*6+f.p)*f.amp;
+      var fa=.18+.22*Math.abs(Math.sin(t/1300+f.p));
+      var g=x.createRadialGradient(fx,fy,0,fx,fy,7);
+      g.addColorStop(0,'rgba(200,233,106,'+fa+')');g.addColorStop(1,'rgba(200,233,106,0)');
+      x.globalAlpha=1;x.fillStyle=g;x.beginPath();x.arc(fx,fy,7,0,6.28);x.fill();}
+    /* редкая падающая звезда */
+    if(!meteor&&t>nextMeteor){
+      meteor={x:c.width*(.2+Math.random()*.6),y:c.height*.05+Math.random()*c.height*.15,life:0};
+      nextMeteor=t+9000+Math.random()*10000;
+    }
+    if(meteor){
+      meteor.life+=16;meteor.x+=5.5;meteor.y+=2.6;
+      var ml=Math.max(0,1-meteor.life/700);
+      if(ml<=0){meteor=null;}
+      else{
+        x.globalAlpha=ml*.7;
+        var mg=x.createLinearGradient(meteor.x,meteor.y,meteor.x-70,meteor.y-33);
+        mg.addColorStop(0,'#dff3e4');mg.addColorStop(1,'rgba(223,243,228,0)');
+        x.strokeStyle=mg;x.lineWidth=1.4;x.beginPath();
+        x.moveTo(meteor.x,meteor.y);x.lineTo(meteor.x-70,meteor.y-33);x.stroke();
+      }
+    }
+    x.globalAlpha=1;
+    if(!reduce)requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+
+  /* ---- стартовая последовательность hero ---- */
+  requestAnimationFrame(function(){requestAnimationFrame(function(){
+    document.getElementById('hero').classList.add('go');
+  });});
+
+  /* ---- scroll-reveal ---- */
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:.2,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  io.observe(document.getElementById('vortex'));
+
+  /* ---- авто-демо: чат «спроси / разбери», несколько сценариев ---- */
+  var scenes=[
+    { label:'НОВАЯ МЫСЛЬ', right:'☾ раскладывает на шаги',
+      q:'хочу запустить курс по фотографии',
+      html:'<span class="tchip tc-idea">✨ новый проект</span>'+
+           '<div class="t">Курс по фотографии</div>'+
+           '<div class="lead2">Разложил на первые шаги:</div>'+
+           '<ul class="steplist">'+
+           '<li><span class="bx"></span>Составить программу курса<span class="tm">~1 ч</span></li>'+
+           '<li><span class="bx"></span>Набросать структуру лендинга<span class="tm">~30 мин</span></li>'+
+           '<li><span class="bx"></span>Выбрать площадку для записи<span class="tm">~20 мин</span></li>'+
+           '</ul>' },
+    { label:'НОВАЯ МЫСЛЬ', right:'☾ оценивает время',
+      q:'надо позвонить в типографию по буклетам',
+      html:'<span class="tchip tc-task">задача</span>'+
+           '<div class="t">Позвонить в типографию</div>'+
+           '<div class="meta">'+
+           '<span>📁 <b>Курс по фотографии</b></span>'+
+           '<span class="est">⏱ займёт <b>~10 минут</b> · сегодня</span>'+
+           '</div>' },
+    { label:'ВОПРОС К MOONWORT', right:'☾ помнит контекст',
+      q:'что у меня застряло?',
+      html:'<div class="lead2">Два проекта стоят дольше недели:</div>'+
+           '<div class="qrow"><span class="st">🟠</span><div><b>Книга</b> — <span>не двигалась 12 дней</span></div></div>'+
+           '<div class="qrow"><span class="st">🟠</span><div><b>Курс</b> — <span>застрял на структуре лендинга</span></div></div>'+
+           '<div class="qrow"><span class="st">☾</span><div><span>Сделать один фокусом недели?</span></div></div>' }
+  ];
+  var chat=document.getElementById('chat'),
+      sLabel=document.getElementById('sceneLabel'),
+      sRight=document.getElementById('sceneRight'),
+      dots=document.getElementById('dots').children,
+      i=0,timer=null,typeTimer=null,timers=[];
+  function clearT(){timers.forEach(clearTimeout);timers=[];if(typeTimer)clearInterval(typeTimer);}
+  function typeInto(el,text,done){
+    if(reduce){el.textContent=text;done();return;}
+    var n=0;el.innerHTML='<span class="txt"></span><span class="caret"></span>';
+    var span=el.querySelector('.txt');
+    typeTimer=setInterval(function(){
+      span.textContent=text.slice(0,++n);
+      if(n>=text.length){clearInterval(typeTimer);var cr=el.querySelector('.caret');if(cr)cr.remove();done();}
+    },42);
+  }
+  function play(){
+    var sc=scenes[i];
+    clearT();
+    for(var k=0;k<dots.length;k++)dots[k].className=k===i?'on':'';
+    sLabel.textContent=sc.label;
+    chat.innerHTML='';
+    var qb=document.createElement('div');qb.className='qbub';chat.appendChild(qb);
+    timers.push(setTimeout(function(){
+      qb.classList.add('show');
+      typeInto(qb,sc.q,function(){
+        sRight.textContent=sc.right;
+        var tp=document.createElement('div');tp.className='typing';tp.innerHTML='<i></i><i></i><i></i>';chat.appendChild(tp);
+        timers.push(setTimeout(function(){tp.classList.add('show');},60));
+        timers.push(setTimeout(function(){
+          tp.remove();
+          var a=document.createElement('div');a.className='ans'+(sc.care?' care':'');
+          a.innerHTML=sc.html;chat.appendChild(a);
+          timers.push(setTimeout(function(){
+            a.classList.add('show');
+            a.querySelectorAll('.steplist li').forEach(function(li,x){
+              timers.push(setTimeout(function(){li.classList.add('in');},260+x*260));
+            });
+          },60));
+        },reduce?200:1300));
+      });
+    },reduce?0:350));
+    i=(i+1)%scenes.length;
+  }
+  play();
+  var period=reduce?5600:7600;
+  timer=setInterval(play,period);
+  var scene=document.getElementById('scene');
+  scene.addEventListener('mouseenter',function(){if(timer){clearInterval(timer);timer=null;}});
+  scene.addEventListener('mouseleave',function(){if(!timer)timer=setInterval(play,period);});
+})();
+</script>
+</html>
